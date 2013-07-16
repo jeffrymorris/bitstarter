@@ -82,4 +82,4 @@ if(require.main == module) {
 } else {
     exports.checkHtmlFile = checkHtmlFile;
 }
->>>>>>> 8586a99ca98eb9db999cf0358907729ba68041cd
+
