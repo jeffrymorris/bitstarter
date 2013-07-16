@@ -32,7 +32,7 @@ var checkHtmlFile = function(htmlFile, checksFile){
 };
 
 var clone = function(fn){
-	return fn.bind();
+	return fn.bind({});
 };
 
 if(require == module){
