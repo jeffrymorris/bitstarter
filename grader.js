@@ -24,6 +24,9 @@ References:
 var fs = require('fs');
 var program = require('commander');
 var cheerio = require('cheerio');
+var sys = require('util');
+var rest = require('./restler');
+
 var HTMLFILE_DEFAULT = "index.html";
 var CHECKSFILE_DEFAULT = "checks.json";
 var URL_DEFAULT = "http://google.com";
@@ -68,8 +71,13 @@ if(require.main == module) {
         .option('-f, --file <html_file>', 'Path to index.html', clone(assertFileExists), HTMLFILE_DEFAULT)
         .option('-u, --url <check_url>', 'Url to check', clone(assertFileExists), URL_DEFAULT)
         .parse(process.argv);
-    var checkJson = checkHtmlFile(program.file, program.checks);
-    var outJson = JSON.stringify(checkJson, null, 4);
+
+    if(program.url) {
+    	console.log(program.url);
+    }else{
+    	var checkJson = checkHtmlFile(program.file, program.checks);
+    	var outJson = JSON.stringify(checkJson, null, 4);
+	}
     console.log(outJson);
 } else {
     exports.checkHtmlFile = checkHtmlFile;
