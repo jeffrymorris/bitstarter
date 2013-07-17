@@ -42,6 +42,9 @@ var assertFileExists = function(infile) {
 
 var assertUrlExists = function(inurl){
     var instr = inurl.toString();
+    rest.get(instr).on('complete', function(result)){
+        con.log(result);
+    });
     
 };
 
@@ -74,7 +77,7 @@ if(require.main == module) {
     program
         .option('-c, --checks <check_file>', 'Path to checks.json', clone(assertFileExists), CHECKSFILE_DEFAULT)
         .option('-f, --file <html_file>', 'Path to index.html', clone(assertFileExists), HTMLFILE_DEFAULT)
-        .option('-u, --url <check_url>', 'Url to check', clone(assertFileExists), URL_DEFAULT)
+        .option('-u, --url <check_url>', 'Url to check', clone(assertUrlExists), URL_DEFAULT)
         .parse(process.argv);
 
     if(program.url) {
