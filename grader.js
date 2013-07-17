@@ -80,18 +80,25 @@ if(require.main == module) {
         .option('-u, --url <check_url>', 'Url to check')
         .parse(process.argv);
 
-console.log('url->' + program.url);
-console.log('file->' + program.file);
     if(program.url) {
-    	console.log(program.url);
+    	var instr = program.url.toString();
+            rest.get(instr).on('complete', function(result){
+            $ = cheerio.load(result);
+             var checks = loadChecks(checksfile).sort();
+            var out = {};
+            for(var ii in checks) {
+                var present = $(checks[ii]).length > 0;
+                out[checks[ii]] = present;
+            }
+            var outJson = JSON.stringify(out, null, 4);
+            console.log(outJson);
+         });
     }else{
-	console.log(program.file);
     	var checkJson = checkHtmlFile(program.file, program.checks);
-    	var outJson = JSON.stringify(checkJson, null, 4);
+    	var outJson2 = JSON.stringify(checkJson, null, 4);
+        console.log(outJson2);
 	}
-    console.log(outJson);
 } else {
-console.log('here');
     exports.checkHtmlFile = checkHtmlFile;
 }
 
