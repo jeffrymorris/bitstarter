@@ -84,7 +84,7 @@ if(require.main == module) {
     	var instr = program.url.toString();
             rest.get(instr).on('complete', function(result){
             $ = cheerio.load(result);
-             var checks = loadChecks(checksfile).sort();
+             var checks = loadChecks(program.checks).sort();
             var out = {};
             for(var ii in checks) {
                 var present = $(checks[ii]).length > 0;
