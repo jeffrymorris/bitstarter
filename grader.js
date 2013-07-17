@@ -43,7 +43,7 @@ var assertFileExists = function(infile) {
 var assertUrlExists = function(inurl){
     var instr = inurl.toString();
     rest.get(instr).on('complete', function(result){
-        //console.log(result);
+        console.log('-->' + program.url);
     });
     
 };
@@ -80,6 +80,8 @@ if(require.main == module) {
         .option('-u, --url <check_url>', 'Url to check', clone(assertUrlExists), URL_DEFAULT)
         .parse(process.argv);
 
+console.log('url->' + program.url);
+console.log('file->' + program.file);
     if(program.url) {
     	console.log(program.url);
     }else{
